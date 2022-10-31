@@ -52,16 +52,16 @@ kafka:
   SASLUserName: 
   SASLPassword:
   ws2mschat:
-    addr: [ 116.63.8.212:9882 ] #kafka配置，默认即可
+    addr: [ 116.63.8.212:9092 ] #kafka配置，默认即可
     topic: "ws2ms_chat_dev" #用于mongo和mysql保存消息
 #  ws2mschatoffline:
-#    addr: [ 116.63.8.212:9882 ] #kafka配置，默认即可
+#    addr: [ 116.63.8.212:9092 ] #kafka配置，默认即可
 #    topic: "ws2ms_chat_offline" #原为离线用户消息处理，目前暂时弃用
   msgtomongo:
-    addr: [ 116.63.8.212:9882 ] #kafka配置，默认即可
+    addr: [ 116.63.8.212:9092 ] #kafka配置，默认即可
     topic: "msg_to_mongo_dev"
   ms2pschat:
-    addr: [ 116.63.8.212:9882 ] #kafka配置，默认即可
+    addr: [ 116.63.8.212:9092 ] #kafka配置，默认即可
     topic: "ms2ps_chat_dev" #消息push
   consumergroupid:
     msgToTransfer: mongo
@@ -764,7 +764,7 @@ demo:
     smtpAddr: "smtp.qq.com"
     smtpPort: 25   #需开放此端口 出口方向
   testDepartMentID: 001
-  imAPIURL: http://127.0.0.1:10002
+  imAPIURL: http://api:10002
   onboardProcess: false # 是否开启注册流程
   createOrganizationUserAndJoinDepartment: false
   joinDepartmentIDList: [] # 用户注册进来默认加的部门ID列表 不填就随机

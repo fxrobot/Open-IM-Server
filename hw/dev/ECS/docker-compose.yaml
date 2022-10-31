@@ -17,7 +17,7 @@ services:
     container_name: kafka-dev
     restart: always
     ports:
-      - 9882:9092
+      - 9092:9092
     environment:
       TZ: Asia/Shanghai
       KAFKA_BROKER_ID: 0

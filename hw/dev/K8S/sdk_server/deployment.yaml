@@ -34,7 +34,7 @@ spec:
           - name: CONFIG_NAME
             value: "/Open-IM-Server"         
         command: ["/Open-IM-Server/main"]
-        args: ["-openIM_ws_address", "ws_addr", "-sdk_ws_port", "10003", "-openIM_api_address", "api_address", "-openIM_log_level", "6"]
+        args: ["-sdk_ws_port", "10003", "-openIM_log_level", "6"]
       imagePullSecrets:
         - name: default-secret
       volumes:
