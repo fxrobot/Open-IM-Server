@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: minio
+  name: minio
+spec:
+  serviceName: minio
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - args:
+            - server
+            - /data
+          env:
+          - name: MINIO_ROOT_USER
+            value: user12345
+          - name: MINIO_ROOT_PASSWORD
+            value: key12345
+          image: swr.cn-east-3.myhuaweicloud.com/fusionhealth/minio:latest
+          name: minio
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - mountPath: /data
+              name: minio-claim0
+            - mountPath: /root/.minio
+              name: minio-claim1
+          resources:
+            requests:
+              cpu: 20m
+              memory: 1Mi
+            limits:
+              cpu: 100m
+              memory: 352Mi
+      imagePullSecrets:
+        - name: default-secret
+      restartPolicy: Always
+      volumes:
+        - name: minio-claim0
+          hostPath: 
+            path: /data/minio
+        - name: minio-claim1
+          hostPath: 
+            path: /data/minio/config

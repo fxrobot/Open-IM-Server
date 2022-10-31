@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: open-im-server
+  name: open-im-server
+spec:
+  serviceName: open-im-server
+  replicas: 2
+  selector:
+    matchLabels:
+      app: open-im-server
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy": Parallel
+  # strategy:
+  #   type: RollingUpdate
+  #   rollingUpdate:
+  #     maxSurge: 1
+  #     maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: open-im-server
+    spec:
+      containers:
+        - image: swr.cn-east-3.myhuaweicloud.com/fusionhealth/open_im_server:v2.1.0
+          name: open-im-server
+          ports:
+            - containerPort: 10001
+            - containerPort: 10002
+            - containerPort: 10003
+            - containerPort: 10004
+            - containerPort: 10006
+            - containerPort: 10110
+            - containerPort: 10120
+            - containerPort: 10130
+            - containerPort: 10140
+            - containerPort: 10150
+            - containerPort: 10160
+            - containerPort: 10170
+            - containerPort: 10180
+            - containerPort: 10190
+            - containerPort: 10200
+            - containerPort: 10210
+            - containerPort: 10220
+            - containerPort: 10230
+            - containerPort: 10240
+          volumeMounts:
+            - mountPath: /Open-IM-Server/logs
+              name: open-im-server-claim0
+            - mountPath: /Open-IM-Server/config
+              name: open-im-server-claim1
+            - mountPath: /Open-IM-Server/db/sdk
+              name: open-im-server-claim2
+            - mountPath: /Open-IM-Server/script
+              name: open-im-server-claim3
+          resources:
+            requests:
+              cpu: 240m
+              memory: 1Mi
+            limits:
+              cpu: 480m
+              memory: 512Mi
+      imagePullSecrets:
+        - name: default-secret
+      restartPolicy: Always
+      volumes:
+        - name: open-im-server-claim0
+          hostPath:
+            path: /data/openimserver/logs
+        - name: open-im-server-claim1
+          hostPath:
+            path: /data/openimserver/config
+        - name: open-im-server-claim2
+          hostPath:
+            path: /data/openimserver/db/sdk
+        - name: open-im-server-claim3
+          hostPath:
+            path: /data/openimserver/script

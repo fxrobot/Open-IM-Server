@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: open-im-server
+  name: open-im-server-inner
+spec:
+  ports:
+    - name: "10001"
+      port: 10001
+      targetPort: 10001
+    - name: "10002"
+      port: 10002
+      targetPort: 10002
+    - name: "10003"
+      port: 10003
+      targetPort: 10003
+    - name: "10004"
+      port: 10004
+      targetPort: 10004
+    - name: "10006"
+      port: 10006
+      targetPort: 10006
+    - name: "10110"
+      port: 10110
+      targetPort: 10110
+    - name: "10120"
+      port: 10120
+      targetPort: 10120
+    - name: "10130"
+      port: 10130
+      targetPort: 10130
+    - name: "10140"
+      port: 10140
+      targetPort: 10140
+    - name: "10150"
+      port: 10150
+      targetPort: 10150
+    - name: "10160"
+      port: 10160
+      targetPort: 10160
+    - name: "10170"
+      port: 10170
+      targetPort: 10170
+    - name: "10180"
+      port: 10180
+      targetPort: 10180
+    - name: "10190"
+      port: 10190
+      targetPort: 10190
+    - name: "10200"
+      port: 10200
+      targetPort: 10200
+    - name: "10210"
+      port: 10210
+      targetPort: 10210
+    - name: "10220"
+      port: 10220
+      targetPort: 10220
+    - name: "10230"
+      port: 10230
+      targetPort: 10230
+    - name: "10240"
+      port: 10240
+      targetPort: 10240
+  selector:
+    app: open-im-server
+  type: ClusterIP

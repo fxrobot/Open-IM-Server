@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: zookeeper
+  name: zookeeper
+spec:
+  serviceName: zookeeper
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+        - env:
+          - name: TZ
+            value: Asia/Shanghai
+          image: swr.cn-east-3.myhuaweicloud.com/fusionhealth/zookeeper:latest
+          name: zookeeper
+          ports:
+            - containerPort: 2181
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: zookeeper-claim0
+          resources:
+            requests:
+              cpu: 40m
+              memory: 1Mi
+            limits:
+              cpu: 120m
+              memory: 288Mi
+      imagePullSecrets:
+        - name: default-secret
+      restartPolicy: Always
+      volumes:
+        - name: zookeeper-claim0
+          hostPath: 
+            path: /etc/localtime
