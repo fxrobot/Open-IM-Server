@@ -26,7 +26,7 @@ func initMysqlDB() {
 	fmt.Println("init mysqlDB start")
 	//When there is no open IM database, connect to the mysql built-in database to create openIM database
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=true&loc=Local",
-		config.Config.Mysql.DBUserName, config.Config.Mysql.DBPassword, config.Config.Mysql.DBAddress[0], "mysql")
+		config.Config.Mysql.DBUserName, config.Config.Mysql.DBPassword, config.Config.Mysql.DBAddress[0], config.Config.Mysql.DBDatabaseName)
 	var db *gorm.DB
 	var err1 error
 	db, err := gorm.Open(mysql.Open(dsn), nil)

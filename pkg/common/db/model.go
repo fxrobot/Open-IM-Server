@@ -2,18 +2,21 @@ package db
 
 import (
 	"Open_IM/pkg/common/config"
+	"strings"
+
 	"github.com/dtm-labs/rockscache"
 	"go.mongodb.org/mongo-driver/x/bsonx"
-	"strings"
 
 	//"Open_IM/pkg/common/log"
 	"Open_IM/pkg/utils"
 	"fmt"
+
 	go_redis "github.com/go-redis/redis/v8"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"gopkg.in/mgo.v2"
 	"time"
+
+	"gopkg.in/mgo.v2"
 
 	"context"
 	//"go.mongodb.org/mongo-driver/bson"
@@ -72,11 +75,11 @@ func init() {
 			// clientOpts := options.Client().ApplyURI("mongodb://localhost:27017,localhost:27018/?replicaSet=replset")
 			//mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
 			//uri = fmt.Sprintf("mongodb://%s:%s@%s/%s?maxPoolSize=%d&authSource=admin&replicaSet=replset",
-			uri = fmt.Sprintf("mongodb://%s:%s@%s/%s?maxPoolSize=%d&authSource=admin",
+			uri = fmt.Sprintf("mongodb://%s:%s@%s/%s?maxPoolSize=%d&authSource=openIM_dev",
 				config.Config.Mongo.DBUserName, config.Config.Mongo.DBPassword, mongodbHosts,
 				config.Config.Mongo.DBDatabase, config.Config.Mongo.DBMaxPoolSize)
 		} else {
-			uri = fmt.Sprintf("mongodb://%s/%s/?maxPoolSize=%d&authSource=admin",
+			uri = fmt.Sprintf("mongodb://%s/%s/?maxPoolSize=%d&authSource=openIM_dev",
 				mongodbHosts, config.Config.Mongo.DBDatabase,
 				config.Config.Mongo.DBMaxPoolSize)
 		}

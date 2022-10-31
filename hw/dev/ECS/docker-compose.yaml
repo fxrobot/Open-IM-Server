@@ -5,7 +5,7 @@ services:
     image: swr.cn-north-4.myhuaweicloud.com/wcmdh/zookeeper
     ports:
       - 9811:2181
-    container_name: zookeeper
+    container_name: zookeeper-dev
     volumes:
       - /etc/localtime:/etc/localtime
     environment:
@@ -14,18 +14,17 @@ services:
 
   kafka:
     image: swr.cn-north-4.myhuaweicloud.com/wcmdh/kafka
-    container_name: kafka
+    container_name: kafka-dev
     restart: always
     ports:
       - 9882:9092
-      - 9883:9093
     environment:
       TZ: Asia/Shanghai
       KAFKA_BROKER_ID: 0
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:9811
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-dev:2181
       KAFKA_CREATE_TOPICS: "ws2ms_chat_dev:8:1,ms2ps_chat_dev:8:1,msg_to_mongo_dev:8:1"
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://127.0.0.1:9092,OUTSIDE://116.63.8.212:9882
-      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9883
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka-dev:9092,OUTSIDE://116.63.8.212:9092
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9093
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT"
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
     depends_on:
@@ -36,7 +35,7 @@ services:
     ports:
       - 9898:2379
       - 9899:2380
-    container_name: etcd
+    container_name: etcd-dev
     volumes:
       - /etc/timezone:/etc/timezone
       - /etc/localtime:/etc/localtime

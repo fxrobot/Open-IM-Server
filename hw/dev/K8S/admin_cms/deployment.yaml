@@ -2,7 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-cms-deployment
+  name: admin-cms
+  namespace: im
 spec:
   selector:
     matchLabels:
@@ -15,8 +16,8 @@ spec:
     spec:
       containers:
         - name: admin-cms
-          image: openim/admin_cms:v2.3.0release
-          # imagePullPolicy: Always #每次启动都重新拉取镜像
+          image: swr.cn-north-4.myhuaweicloud.com/wcmdh/openim/admin_cms:v2.3.0
+          imagePullPolicy: Always #每次启动都重新拉取镜像
           ports:
             - containerPort: 10200
           volumeMounts:
@@ -25,7 +26,9 @@ spec:
               readOnly: true
           env:
             - name: CONFIG_NAME
-              value: "/Open-IM-Server"    
+              value: "/Open-IM-Server"
+      imagePullSecrets:
+        - name: default-secret    
       volumes:
         - name: config
           configMap:

@@ -2,7 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msg-transfer-deployment
+  name: msg-transfer
+  namespace: im
 spec:
   selector:
     matchLabels:
@@ -13,17 +14,23 @@ spec:
       labels:
         app: msg-transfer # 标签
     spec:
+      hostAliases:
+      - ip: "116.63.8.212"
+        hostnames:
+        - "kafka-dev"
       containers:
       - name: msg-transfer
-        image: openim/msg_transfer:v2.3.0release
-        # imagePullPolicy: Always
+        image: swr.cn-north-4.myhuaweicloud.com/wcmdh/openim/msg_transfer:v2.3.0
+        imagePullPolicy: Always
         volumeMounts:
           - name: config
             mountPath: /Open-IM-Server/config
             readOnly: true
         env:
           - name: CONFIG_NAME
-            value: "/Open-IM-Server"         
+            value: "/Open-IM-Server"    
+      imagePullSecrets:
+        - name: default-secret     
       volumes:
         - name: config
           configMap:

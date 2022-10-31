@@ -2,7 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-deployment
+  name: user
+  namespace: im
 spec:
   selector:
     matchLabels:
@@ -15,15 +16,17 @@ spec:
     spec:
       containers:
       - name: user
-        image: openim/user:v2.3.0release
-        # imagePullPolicy: Always
+        image: swr.cn-north-4.myhuaweicloud.com/wcmdh/openim/user:v2.3.0
+        imagePullPolicy: Always
         volumeMounts:
           - name: config
             mountPath: /Open-IM-Server/config
             readOnly: true
         env:
           - name: CONFIG_NAME
-            value: "/Open-IM-Server"         
+            value: "/Open-IM-Server"    
+      imagePullSecrets:
+        - name: default-secret    
       volumes:
         - name: config
           configMap:

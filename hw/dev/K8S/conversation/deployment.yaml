@@ -2,7 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: conversation-deployment
+  name: conversation
+  namespace: im
 spec:
   selector:
     matchLabels:
@@ -15,8 +16,8 @@ spec:
     spec:
       containers:
         - name: conversation
-          image: openim/conversation:v2.3.0release
-          # imagePullPolicy: Always
+          image: swr.cn-north-4.myhuaweicloud.com/wcmdh/openim/conversation:v2.3.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 10230
           volumeMounts:
@@ -26,7 +27,8 @@ spec:
           env:
           - name: CONFIG_NAME
             value: "/Open-IM-Server" 
-          
+      imagePullSecrets:
+        - name: default-secret
       volumes:
         - name: config
           configMap:
