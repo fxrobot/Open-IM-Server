@@ -14,6 +14,10 @@ spec:
       labels:
         app: msg # 标签
     spec:
+      hostAliases:
+      - ip: "116.63.8.212"
+        hostnames:
+        - "kafka-dev"
       containers:
       - name: msg
         image: swr.cn-north-4.myhuaweicloud.com/wcmdh/openim/msg:v2.3.0
@@ -27,6 +31,11 @@ spec:
         env:
           - name: CONFIG_NAME
             value: "/Open-IM-Server"   
+        resources:
+          requests: {}
+          limits:
+            cpu: 250m
+            memory: 1024Mi
       imagePullSecrets:
         - name: default-secret      
       volumes:

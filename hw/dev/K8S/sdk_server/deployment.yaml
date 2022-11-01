@@ -32,9 +32,14 @@ spec:
             mountPath: /Open-IM-Server/db/sdk
         env:
           - name: CONFIG_NAME
-            value: "/Open-IM-Server"         
+            value: "/Open-IM-Server"        
+        resources:
+          requests: {}
+          limits:
+            cpu: 250m
+            memory: 1024Mi    
         command: ["/Open-IM-Server/main"]
-        args: ["-openIM_ws_address", "http://msg-gateway:10001", "-sdk_ws_port", "10003", "-openIM_api_address", "http://api:10002", "-openIM_log_level", "6"]
+        args: ["-openIM_ws_address", "ws://msg-gateway:10001", "-sdk_ws_port", "10003", "-openIM_api_address", "http://api:10002", "-openIM_log_level", "6"]
       imagePullSecrets:
         - name: default-secret
       volumes:
