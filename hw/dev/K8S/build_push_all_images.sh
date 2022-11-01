@@ -5,7 +5,7 @@ source ./path_info.cfg
 version=v2.3.0
 git pull
 cd ../../../script/; sh ./build_all_service.sh
-cd ../hw/dev/K8S/
+cd ../hw/dev/k8s/
 
 for i in  ${service[*]}
 do
