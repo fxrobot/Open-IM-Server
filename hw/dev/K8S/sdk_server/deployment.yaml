@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: sdk-server
   namespace: im
@@ -29,12 +29,12 @@ spec:
             mountPath: /Open-IM-Server/config
             readOnly: true
           - name: local-db
-            mountPath: /db/sdk
+            mountPath: /Open-IM-Server/db/sdk
         env:
           - name: CONFIG_NAME
             value: "/Open-IM-Server"         
         command: ["/Open-IM-Server/main"]
-        args: ["-sdk_ws_port", "10003", "-openIM_log_level", "6"]
+        args: ["-openIM_ws_address", "http://msg-gateway:10001", "-sdk_ws_port", "10003", "-openIM_api_address", "http://api:10002", "-openIM_log_level", "6"]
       imagePullSecrets:
         - name: default-secret
       volumes:
@@ -60,6 +60,4 @@ spec:
       targetPort: 10003
   selector:
     app: sdk-server
-  type: NodePort   
-
-    
+  type: NodePort

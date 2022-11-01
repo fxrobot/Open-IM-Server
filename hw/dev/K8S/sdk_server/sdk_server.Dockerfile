@@ -10,9 +10,9 @@ ADD ./open_im_sdk_server $WORKDIR/main
 
 # 创建用于挂载的几个目录，添加可执行权限
 RUN mkdir $WORKDIR/logs $WORKDIR/config $WORKDIR/db && \
-  chmod +x $WORKDIR/main
+    chmod +x $WORKDIR/main
 
-VOLUME ["/Open-IM-Server/logs","/Open-IM-Server/config","/Open-IM-Server/script","/Open-IM-Server/db/sdk"]
+VOLUME ["/Open-IM-Server/logs", "/Open-IM-Server/config", "/Open-IM-Server/script", "/Open-IM-Server/db/sdk"]
 
 WORKDIR $CMDDIR
 CMD ./main
