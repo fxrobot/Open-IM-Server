@@ -146,7 +146,7 @@ func init() {
 			Addr:     config.Config.Redis.DBAddress[0],
 			Username: config.Config.Redis.DBUserName,
 			Password: config.Config.Redis.DBPassWord, // no password set
-			DB:       0,                              // use default DB
+			DB:       config.Config.Redis.DB,         // use default DB
 			PoolSize: 100,                            // 连接池大小
 		})
 		_, err = DB.RDB.Ping(ctx).Result()

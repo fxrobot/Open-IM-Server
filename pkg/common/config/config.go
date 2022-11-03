@@ -123,6 +123,7 @@ type config struct {
 		DBUserName    string   `yaml:"dbUserName"`
 		DBPassWord    string   `yaml:"dbPassWord"`
 		EnableCluster bool     `yaml:"enableCluster"`
+		DB            int      `yaml:"db"`
 	}
 	RpcPort struct {
 		OpenImUserPort           []int `yaml:"openImUserPort"`

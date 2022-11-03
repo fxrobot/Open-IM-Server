@@ -40,13 +40,14 @@ mongo:
   chatRecordsClearTime: "* * * * *" # 每天凌晨3点清除消息，该配置和linux定时任务一样， 清理操作建议设置在用户活跃少的时候 # 0 3 * * *
 
 redis:
-  dbAddress: [ 116.63.8.212:9528 ] #redis地址 单机时，填写一个地址即可，使用redis集群时候，填写集群中多个节点地址（主从地址都可以填写，增加容灾能力），默认即可
+  dbAddress: [ redis-17f06f87-3ec0-495c-90a4-20fbe5c67f96.cn-north-4.dcs.myhuaweicloud.com:6379 ] #redis地址 单机时，填写一个地址即可，使用redis集群时候，填写集群中多个节点地址（主从地址都可以填写，增加容灾能力），默认即可
   dbMaxIdle: 128
   dbMaxActive: 0
   dbIdleTimeout: 120
   dbUserName:     #only redis version 6.0+ need username
-  dbPassWord: ^junrui666$ #redis密码 建议修改
-  enableCluster: false #如果外部redis以集群方式启动，需要打开此开关
+  dbPassWord: fusion@2022$ #redis密码 建议修改
+  db: 3
+  enableCluster: true #如果外部redis以集群方式启动，需要打开此开关
 
 kafka:
   SASLUserName: 
@@ -124,7 +125,7 @@ credential: #腾讯cos，发送图片、视频、文件时需要，请自行申�
     location: us-east-1
     endpoint: http://127.0.0.1:10005 #minio外网ip 这个ip是给客户端访问的
     endpointInner: http://127.0.0.1:10005 #minio内网地址 如果im server 可以通过内网访问到 minio就可以
-    endpointInnerEnable: true #是否启用minio内网地址 启用可以让桶初始化，IM server连接minio走内网地址访问
+    endpointInnerEnable: false #是否启用minio内网地址 启用可以让桶初始化，IM server连接minio走内网地址访问
     accessKeyID: user12345
     secretAccessKey: key12345
     storageTime: 50 #文件在minio中保存的时间
