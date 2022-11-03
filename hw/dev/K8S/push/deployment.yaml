@@ -14,10 +14,10 @@ spec:
       labels:
         app: push # 标签
     spec:
-      hostAliases:
-      - ip: "116.63.8.212"
-        hostnames:
-        - "kafka-dev"
+      # hostAliases:
+      # - ip: "116.63.8.212"
+      #   hostnames:
+      #   - "kafka-dev"
       containers:
       - name: push
         image: swr.cn-north-4.myhuaweicloud.com/wcmdh/openim/push:v2.3.0

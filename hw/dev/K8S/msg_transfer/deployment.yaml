@@ -14,10 +14,10 @@ spec:
       labels:
         app: msg-transfer # 标签
     spec:
-      hostAliases:
-      - ip: "116.63.8.212"
-        hostnames:
-        - "kafka-dev"
+      # hostAliases:
+      # - ip: "116.63.8.212"
+      #   hostnames:
+      #   - "kafka-dev"
       containers:
       - name: msg-transfer
         image: swr.cn-north-4.myhuaweicloud.com/wcmdh/openim/msg_transfer:v2.3.0
