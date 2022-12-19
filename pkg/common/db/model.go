@@ -75,13 +75,13 @@ func init() {
 			// clientOpts := options.Client().ApplyURI("mongodb://localhost:27017,localhost:27018/?replicaSet=replset")
 			//mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
 			//uri = fmt.Sprintf("mongodb://%s:%s@%s/%s?maxPoolSize=%d&authSource=admin&replicaSet=replset",
-			uri = fmt.Sprintf("mongodb://%s:%s@%s/%s?maxPoolSize=%d&authSource=openIM_dev",
+			uri = fmt.Sprintf("mongodb://%s:%s@%s/%s?maxPoolSize=%d&authSource=%s",
 				config.Config.Mongo.DBUserName, config.Config.Mongo.DBPassword, mongodbHosts,
-				config.Config.Mongo.DBDatabase, config.Config.Mongo.DBMaxPoolSize)
+				config.Config.Mongo.DBDatabase, config.Config.Mongo.DBMaxPoolSize, config.Config.Mongo.DBSource)
 		} else {
-			uri = fmt.Sprintf("mongodb://%s/%s/?maxPoolSize=%d&authSource=openIM_dev",
+			uri = fmt.Sprintf("mongodb://%s/%s/?maxPoolSize=%d&authSource=%s",
 				mongodbHosts, config.Config.Mongo.DBDatabase,
-				config.Config.Mongo.DBMaxPoolSize)
+				config.Config.Mongo.DBMaxPoolSize, config.Config.Mongo.DBSource)
 		}
 	}
 
