@@ -8,6 +8,7 @@ package http
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -43,7 +44,14 @@ func Post(url string, data interface{}, timeOutSecond int) (content []byte, err 
 	req.Close = true
 	req.Header.Add("content-type", "application/json; charset=utf-8")
 
-	client := &http.Client{Timeout: time.Duration(timeOutSecond) * time.Second}
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   time.Duration(timeOutSecond) * time.Second,
+	}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
