@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: kafka
+  name: kafka
+  namespace: im
+spec:
+  serviceName: kafka
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+        - env:
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: KAFKA_ADVERTISED_LISTENERS
+            value: INSIDE://:9092,OUTSIDE://:9093
+          - name: KAFKA_BROKER_ID
+            value: "0"
+          - name: KAFKA_CREATE_TOPICS
+            value: ws2ms_chat_dev:8:1,ms2ps_chat_dev:8:1,msg_to_mongo_dev:8:1,ws2ms_chat_test:8:1,ms2ps_chat_test:8:1,msg_to_mongo_test:8:1
+          - name: KAFKA_INTER_BROKER_LISTENER_NAME
+            value: INSIDE
+          - name: KAFKA_LISTENERS
+            value: INSIDE://:9092,OUTSIDE://:9093
+          - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+            value: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+          - name: KAFKA_ZOOKEEPER_CONNECT
+            value: zookeeper:9811
+          - name: TZ
+            value: Asia/Shanghai
+          image: swr.cn-north-4.myhuaweicloud.com/wcmdh/kafka:latest
+          name: kafka
+          ports:
+            - containerPort: 9092
+            - containerPort: 9093
+          resources:
+            limits:
+              cpu: '500m'
+              memory: '2048Mi'
+            requests:
+              cpu: '10m'
+              memory: '1Mi'
+      imagePullSecrets:
+        - name: default-secret
+      restartPolicy: Always

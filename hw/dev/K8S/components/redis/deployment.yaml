@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: redis
+  name: redis
+  namespace: im
+spec:
+  serviceName: redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - env:
+          - name: TZ
+            value: Asia/Shanghai
+          image: swr.cn-north-4.myhuaweicloud.com/wcmdh/redis:6.2.8-alpine
+          name: redis
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: redis-claim0
+          resources:
+            limits:
+              cpu: '200m'
+              memory: '128Mi'
+            requests:
+              cpu: '10m'
+              memory: '1Mi'
+      imagePullSecrets:
+        - name: default-secret
+      restartPolicy: Always
+      volumes:
+        - name: redis-claim0
+          hostPath: 
+            path: /redis/data

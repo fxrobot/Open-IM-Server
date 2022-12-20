@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: zookeeper
+  name: zookeeper
+  namespace: im
+spec:
+  ports:
+    - name: "9811"
+      port: 9811
+      targetPort: 2181
+  selector:
+    app: zookeeper
+  type: ClusterIP
